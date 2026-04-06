@@ -1,18 +1,18 @@
 document.getElementById('supportForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // منع الصفحة من إعادة التحميل
+    event.preventDefault(); // منع تحديث الصفحة
 
     const btn = document.getElementById('submitBtn');
-    const status = document.getElementById('status');
     
+    // جلب القيم من الخانات
+    const name = document.getElementById('userName').value;
+    const phone = document.getElementById('userPhone').value;
+    const job = document.getElementById('userJob').value;
+
     // تغيير حالة الزرار
     btn.innerText = 'جاري الإرسال...';
     btn.disabled = true;
 
-    // تجميع البيانات من الخانات
-    const name = document.getElementById('userName').value;
-    const phone = document.getElementById('userPhone').value;
-
-    // إرسال البيانات لـ FormSubmit عن طريق AJAX
+    // إرسال الطلب لـ FormSubmit (AJAX)
     fetch("https://formsubmit.co/ajax/ziroxoft@gmail.com", {
         method: "POST",
         headers: { 
@@ -20,23 +20,27 @@ document.getElementById('supportForm').addEventListener('submit', function(event
             'Accept': 'application/json'
         },
         body: JSON.stringify({
-            "اسم الداعم": name,
+            "الاسم": name,
             "رقم الهاتف": phone,
-            "_subject": "إشعار دعم جديد: Zimax"
+            "التخصص/العمل": job,
+            "_subject": "طلب انضمام جديد لـ Ziroxoft"
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        // حالة النجاح
-        alert('✅ تم إرسال دعمك بنجاح! شكراً لك.');
-        btn.innerText = 'دعم Zimax';
-        btn.disabled = false;
-        document.getElementById('supportForm').reset();
+    .then(response => {
+        if (response.ok) {
+            alert('✅ تم إرسال بياناتك بنجاح! فريق Ziroxoft هيتواصل معاك.');
+            document.getElementById('supportForm').reset();
+        } else {
+            throw new Error('خطأ في السيرفر');
+        }
     })
     .catch(error => {
-        // حالة الفشل
-        alert('❌ حدث خطأ، يرجى المحاولة مرة أخرى.');
-        btn.innerText = 'دعم Zimax';
+        alert('❌ عذراً، حدث خطأ. تأكد من تفعيل الفورم من الإيميل أول مرة.');
+        console.error(error);
+    })
+    .finally(() => {
+        // إرجاع الزرار لحالته الأصلية
+        btn.innerText = 'إرسال البيانات';
         btn.disabled = false;
     });
 });
