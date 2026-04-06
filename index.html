@@ -3,19 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دعم Zimax</title>
+    <title>انضم لـ Zimax | Ziroxoft</title>
     <link rel="stylesheet" href="Style.css">
 </head>
 <body>
 
     <div class="container">
-        <h2>دعم Zimax</h2>
+        <h2>انضم لفريق Zimax</h2>
+        <p>ابني مستقبلك مع Ziroxoft</p>
+        
         <form id="supportForm">
             <input type="text" id="userName" placeholder="الاسم الكامل" required>
-            <input type="tel" id="userPhone" placeholder="رقم الهاتف" required>
-            <button type="submit" id="submitBtn">دعم Zimax</button>
+            
+            <input type="tel" id="userPhone" placeholder="رقم الهاتف (واتساب)" required>
+            
+            <input type="text" id="userJob" placeholder="أنت بتعرف تشتغل إيه على النت؟" required>
+            
+            <button type="submit" id="submitBtn">إرسال البيانات</button>
         </form>
-        <p id="status"></p>
+        
+        <div id="responseMessage"></div>
     </div>
 
     <script src="Script.js"></script>
